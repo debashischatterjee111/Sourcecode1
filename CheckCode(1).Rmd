@@ -1,0 +1,203 @@
+---
+title: "CkeckCode(1)"
+author: "Debashis Chatterjee"
+date: "11/5/2020"
+output: pdf_document
+---
+```{r}
+x = c(1,2,3,4,5,6,7,8,9,10)
+y = c(10,20,30,40,50,60,70,80,90,100)
+
+plot(x, y, type="o", xlim=c(0,11), ylim=c(0, 110), 
+      xlab="This is X-value", ylab="This is Y-value", main="Line segments")
+segments(0,100,2,100, lwd=2, col="blue")
+
+segments(1,90,2,90, lwd=2, col="blue")
+# Define a set of n data points
+xseg = c(4,5,6,7,4)
+yseg = c(0,10,28,15,0)
+
+# define a sequence from 1 to n-1
+s = seq(length(xseg)-1)
+
+# connect the sequence of points with line segments successively.
+segments(xseg[s],yseg[s], xseg[s+1], yseg[s+1], col="green", lwd=2)
+
+```
+
+```{r}
+## Drawing polygons
+
+## First, draw a graph with points and lines with plot()
+x = seq(0,20,0.5)
+y = 3*x/(2+x)
+
+plot(x,y,cex=0.7, type="o", xlab="Concentration [x]", ylab="d[x]/dt")
+
+
+## Draw a polygon defining an area on the graph -- This is a red square
+xx = c(2.3,7.5,7.5,2.5)
+yy = c(1.6,1.6,2.3,2.3)
+# When density=0, col refers to the line colour
+polygon(xx,yy, density=0, col="red")
+
+
+## Draw a polygon filled with blue colour.
+xx = c(5,8,8,6.5,5)
+yy = c(0,0,0.5,0.8,0.5)
+# when density is not mentioned, col refers to filling colour.
+polygon(xx,yy,col="blue")
+
+
+## Draw a polygon filled with lines
+xx = c(10,10,13)
+yy = c(0.5,1.0,0.75)
+## polygon is filled with 20 lines per inch, green in colour.
+polygon(xx,yy,density=20, col="green", border="black")
+```
+
+
+```{r}
+x = seq(0,20,0.5)
+y = 30*x/(2+x)
+
+plot(x,y,cex=0.7, type="o", xlab="Concentration [x]", ylab="d[x]/dt")
+
+meanx=c(-2,2,0)
+meany=c(1,1,4)
+polygon(meanx,meany,density=20, col="green", border="black", xlim=c(-20,20), ylim=c(-4,10))
+```
+
+```{r}
+x <- c(1:9, 8:1)
+y <- c(1, 2*(5:3), 2, -1, 17, 9, 8, 2:9)
+op <- par(mfcol = c(3, 1))
+for(xpd in c(FALSE, TRUE, NA)) {
+  plot(1:10, main = paste("xpd =", xpd))
+  box("figure", col = "pink", lwd = 3)
+  polygon(x, y, xpd = xpd, col = "orange", lty = 2, lwd = 2, border = "red")
+}
+par(op)
+```
+```{r}
+n <- 100
+xx <- c(0:n, n:0)
+yy <- c(c(0, cumsum(stats::rnorm(n))), rev(c(0, cumsum(stats::rnorm(n)))))
+plot   (xx, yy, type = "n", xlab = "Time", ylab = "Distance")
+polygon(xx, yy, col = "gray", border = "red")
+title("Distance Between Brownian Motions")
+
+```
+
+```{r}
+# Multiple polygons from NA values
+# and recycling of col, border, and lty
+op <- par(mfrow = c(2, 1))
+plot(c(1, 9), 1:2, type = "n")
+polygon(1:9, c(2,1,2,1,1,2,1,2,1),
+        col = c("red", "blue"),
+        border = c("green", "yellow"),
+        lwd = 3, lty = c("dashed", "solid"))
+plot(c(1, 9), 1:2, type = "n")
+polygon(1:9, c(2,1,2,1,NA,2,1,2,1),
+        col = c("red", "blue"),
+        border = c("green", "yellow"),
+        lwd = 3, lty = c("dashed", "solid"))
+par(op)
+```
+
+```{r}
+# Line-shaded polygons
+plot(c(-5, 7), c(-2,6), type = "n", main="Raw Simulated Random Triangles", xlab="x",ylab="y")
+polygon(1:9, c(2,1,2,1,NA,2,1,2,1),
+        density = c(10, 20), angle = c(-45, 45))
+```
+
+```{r}
+require(Morpho)
+```
+```{r}
+data(boneData)
+trafo <- computeTransform(boneLM[,,1],boneLM[,,2])
+transLM <- applyTransform(boneLM[,,2],trafo)
+```
+```{r}
+boneLM[,,1]-transLM
+```
+```{r}
+rotonto
+```
+```{r}
+if (require(shapes)) {
+lims <- c(min(gorf.dat[,,1:2]),max(gorf.dat[,,1:2]))
+rot <- rotonto(gorf.dat[,,1],gorf.dat[,,2]) ### rotate the second onto the first config
+plot(rot$yrot,pch=19,xlim=lims,ylim=lims) ## view result
+points(gorf.dat [,,1],pch=19,col=2) ## view original config
+rev1 <- rotreverse(rot$yrot,rot)
+#points(rev1,cex=2) ### show inversion by larger circles around original configuration
+}
+
+```
+```{r}
+rotonto
+```
+
+
+```{r}
+#example of Pre-shape space and shape space
+plot(c(-5, 10), c(-2,8), type = "n", main="Raw Data-plot of Simulated 5 Random Triangles", xlab="x",ylab="y")
+a=c(0,0);b=c(-1,1);c=c(2,1); t1=rbind(a,b,c);
+d=c(3,1);e=c(4,4);f=c(5,1); t2=rbind(d,e,f);
+g=c(-3,3);h=c(3,4);i=c(3,3); t3=rbind(g,h,i);
+j=c(-4,1);k=c(-3,2);l=c(-3,1); t4=rbind(j,k,l);
+m=c(8,0);n=c(6,6);o=c(4,0); t5=rbind(m,n,o);
+
+polygon(t1[,1],t1[,2],density=20, col="pink", border="red")
+polygon(t2[,1],t2[,2],density=20, col="green", border="forestgreen")
+polygon(t3[,1],t3[,2],density=20, col="skyblue", border="blue")
+polygon(t4[,1],t4[,2],density=20, col="orange", border="darkorange")
+polygon(t5[,1],t5[,2],density=20, col="yellow", border="gold3", lty = 2)
+```
+```{r}
+require(Morpho)
+#example of Pre-shape space and shape space
+plot(c(-5, 10), c(-2,8), type = "n", main="Kendal Shape-space-plot of  5 Random Triangles", xlab="x",ylab="y")
+a=c(0,0);b=c(-1,1);c=c(2,1); t1=rbind(a,b,c);
+d=c(3,1);e=c(4,4);f=c(5,1); t2=rbind(d,e,f);
+g=c(-3,3);h=c(3,4);i=c(3,3); t3=rbind(g,h,i);
+j=c(-4,1);k=c(-3,2);l=c(-3,1); t4=rbind(j,k,l);
+m=c(8,0);n=c(6,6);o=c(4,0); t5=rbind(m,n,o);
+rt1=t1;
+rt2=rotonto(t1,t2)$yrot;
+rt3=rotonto(t1,t3)$yrot;
+rt4=rotonto(t1,t4)$yrot;
+rt5=rotonto(t1,t5)$yrot;
+
+polygon(rt1[,1],rt1[,2],density=20, col="pink", border="red")
+polygon(rt2[,1],rt2[,2],density=20, col="green", border="forestgreen")
+polygon(rt3[,1],rt3[,2],density=20, col="skyblue", border="blue")
+polygon(rt4[,1],rt4[,2],density=20, col="orange", border="darkorange")
+polygon(rt5[,1],rt5[,2],density=20, col="yellow", border="gold3", lty = 2)
+```
+```{r}
+require(Morpho)
+#example of Pre-shape space and shape space
+plot(c(-1.5, 2), c(-1,2), type = "n", main="Kendal Shape-space-plot of those 5 Random Triangles", xlab="x",ylab="y")
+a=c(0,0);b=c(-1,1);c=c(2,1); t1=rbind(a,b,c);
+d=c(3,1);e=c(4,4);f=c(5,1); t2=rbind(d,e,f);
+g=c(-3,3);h=c(3,4);i=c(3,3); t3=rbind(g,h,i);
+j=c(-4,1);k=c(-3,2);l=c(-3,1); t4=rbind(j,k,l);
+m=c(8,0);n=c(6,6);o=c(4,0); t5=rbind(m,n,o);
+rt1=t1;
+rt2=rotonto(t1,t2,scale = T)$yrot;
+rt3=rotonto(t1,t3,scale = T)$yrot;
+rt4=rotonto(t1,t4,scale = T)$yrot;
+rt5=rotonto(t1,t5,scale = T)$yrot;
+
+polygon(rt1[,1],rt1[,2],density=20, col="pink", border="red")
+polygon(rt2[,1],rt2[,2],density=20, col="green", border="forestgreen")
+polygon(rt3[,1],rt3[,2],density=20, col="skyblue", border="blue")
+polygon(rt4[,1],rt4[,2],density=20, col="orange", border="darkorange")
+polygon(rt5[,1],rt5[,2],density=20, col="yellow", border="gold3", lty = 2)
+```
+
