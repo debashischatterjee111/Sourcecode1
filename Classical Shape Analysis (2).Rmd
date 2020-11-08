@@ -1,0 +1,196 @@
+---
+title: "Classical Shape Ana (Draft)"
+author: "Debashis Chatterjee"
+date: "10/19/2020"
+output: pdf_document
+---
+
+
+
+
+
+
+```{r}
+require(shapes)
+require(Morpho)
+```
+
+```{r}
+data(apes)
+proc <- procSym(apes$x)
+
+```
+```{r}
+procSym
+
+```
+
+```{r}
+par(mfrow=c(1,2))
+plotshapes(apes$x[,,apes$group=="gorf"],symbol="f")
+plotshapes(apes$x[,,apes$group=="gorm"],symbol="m")
+```
+
+```{r}
+data(gorf.dat)
+data(gorm.dat)
+bookf<-bookstein2d(gorf.dat)
+bookm<-bookstein2d(gorm.dat)
+plotshapes(bookf$mshape,bookm$mshape,joinline=c(1,6,7,8,2,3,4,5,1))
+```
+
+```{r}
+bookstein2d
+```
+
+```{r}
+data(brains)
+# plot first three brains
+shapes3d(brains$x[,,1:3])
+```
+
+
+```{r}
+data(digit3.dat)
+k<-dim(digit3.dat)[1]
+n<-dim(digit3.dat)[3]
+plotshapes(digit3.dat,joinline=c(1:13))
+```
+
+```{r}
+data(apes)
+k<-dim(apes$x)[1]
+n<-dim(apes$x)[3]
+plotshapes(apes$x,joinline=c(1:8))
+```
+```{r}
+plotshapes(apes$x[,,1],joinline=c(1,6,7,8,2,3,4,5,1), col=1:8, symbol=1:8)
+```
+
+
+
+```{r}
+plotshapes(apes$x[,,1], apes$x[,,2],joinline=c(1,6,7,8,2,3,4,5,1), col=1:8, symbol=1:8)
+```
+
+```{r}
+make.mvn <- function(mean, vcv) {
+  logdet <- as.numeric(determinant(vcv, TRUE)$modulus)
+  tmp <- length(mean) * log(2 * pi) + logdet
+  vcv.i <- solve(vcv)
+
+  function(x) {
+    dx <- x - mean
+    exp(-(tmp + rowSums((dx %*% vcv.i) * dx))/2)
+  }
+}
+```
+
+
+```{r}
+mu=matrix(rep(1,16),8,2)
+for(i in c(1,6,7,8,2,3,4,5,1))
+{
+  mu[i,]=apes$x[i,,1]
+}
+```
+
+
+```{r}
+sigma=50
+  vcviso=(sigma^2)*matrix(c(1,0.5,0.5,1),2,2)
+  
+```
+
+```{r}
+f1=make.mvn(mu[1,],vcviso)
+```
+```{r}
+f1=make.mvn(mu[1,],vcviso)
+f2=make.mvn(mu[2,],vcviso)
+f3=make.mvn(mu[3,],vcviso)
+f4=make.mvn(mu[4,],vcviso)
+f5=make.mvn(mu[5,],vcviso)
+f6=make.mvn(mu[6,],vcviso)
+f7=make.mvn(mu[7,],vcviso)
+f8=make.mvn(mu[8,],vcviso)
+
+```
+```{r}
+f <- function(x)
+    f1(x) + f2(x)+f3(x)+f4(x)+f5(x)+f6(x)+f7(x)+f8(x)
+```
+
+
+```{r}
+
+x <- seq(-100, 200, length=300)
+y <- seq(-100, 300, length=300)
+xy <- expand.grid(x=x, y=y)
+z <- matrix(apply(as.matrix(xy), 1, f), length(x), length(y))
+
+image(x, y, z, las=1)
+contour(x, y, z, add=TRUE)
+```
+
+
+```{r}
+mu1 <- c(-1, 1)
+mu2 <- c(2, -2)
+vcv1 <- matrix(c(1, .25, .25, 1.5), 2, 2)
+vcv2 <- matrix(c(2, -.5, -.5, 2), 2, 2)
+f1 <- make.mvn(mu1, vcv1)
+f2 <- make.mvn(mu2, vcv2)
+f <- function(x)
+    f1(x) + f2(x)
+
+x <- seq(-5, 6, length=71)
+y <- seq(-7, 6, length=61)
+xy <- expand.grid(x=x, y=y)
+z <- matrix(apply(as.matrix(xy), 1, f), length(x), length(y))
+
+image(x, y, z, las=1)
+contour(x, y, z, add=TRUE)
+```
+
+
+
+```{r}
+plotshapes(apes$x[,,1],joinline=c(1,6,7,8,2,3,4,5,1))
+
+
+```
+```{r}
+data(gorf.dat)
+data(gorm.dat)
+plotshapes(gorf.dat,gorm.dat,joinline=c(1,6,7,8,2,3,4,5,1))
+```
+
+
+
+
+
+
+```{r}
+
+data(macm.dat)
+data(macf.dat)
+plotshapes(macm.dat,macf.dat)
+```
+
+
+
+
+```{r}
+data(dna.dat)
+plotshapestime3d(dna.dat)
+```
+
+
+
+
+
+
+
+
+
