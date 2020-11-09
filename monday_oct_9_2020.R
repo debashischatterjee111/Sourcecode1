@@ -59,15 +59,21 @@ plotshapes(digit3.dat,joinline=c(1:13))
 
 
 ```{r}
-gf=gorf.dat
-gm=gorm.dat
+require(shapes)
+data(gorf.dat)
+data(gorm.dat)
+
+ogf=gf=gorf.dat
+ogm=gm=gorm.dat
+```
+
+```{r}
 plotshapes(gm[,,1],joinline=c(1,6,7,8,2,3,4,5,1), col=1:8, symbol=1:8)
 polygon(gm[,1,1],gm[,2,1])
 ```
 
 ```{r}
-ogf=gf=gorf.dat
-ogm=gm=gorm.dat
+
 ```
 
 
@@ -93,65 +99,88 @@ ogm=sortcoldat(ogm,c(1,6,7,8,2,3,4,5))
 ```{r}
 plot(c(min(gm[,1,])-30, 100+max(gm[,1,])), c(min(gm[,2,])-30, max(gm[,2,])+30), type = "n", main="Raw Data-plot of Apes: male & female", xlab="x",ylab="y")
 #plotshapes(gm[,,1],joinline=c(1,6,7,8,2,3,4,5,1), col=1:8, symbol=1:8)
-polygon(ogf[,1,1],ogf[,2,1],density=0, col="pink", border="red")
-points(ogf[,1,1],ogf[,2,1], col="red",pch=1:8)
+
 polygon(ogm[,1,1],ogm[,2,1],density=0, col="skyblue", border="blue")
 points(ogm[,1,1],ogm[,2,1], col="blue",pch=1:8)
+polygon(ogf[,1,1],ogf[,2,1],density=0, col="pink", border="red")
+points(ogf[,1,1],ogf[,2,1], col="red",pch=1:8)
 ```
 
 ```{r}
 require(BPviGM1)
 apem10000.10=MCMCpostPsample2D(1.5,
-rep(0.1,1),ogm[,,1:10],10000)
+rep(0.5,1),ogm[,,1:10],10000)
 ```
 ```{r}
-PPLOTpostvar2D(cct5000.10, 1000)
+PPLOTpostvar2D(apem10000.10, 1000)
 ```
 
 
 
 ```{r}
 apem10000.20=MCMCpostPsample2D(1.5,
-rep(0.1,1),ogm[,,1:20],10000)
+rep(0.5,1),ogm[,,1:20],10000)
+```
+```{r}
+PPLOTpostvar2D(apem10000.20, 1000)
 ```
 
 ```{r}
 apem10000.30=MCMCpostPsample2D(1.5,
-rep(0.1,1),ogm[,,1:30],10000)
+rep(0.5,1),ogm[,,],10000)
+```
+
+```{r}
+PPLOTpostvar2D(apem10000.30, 1000)
 ```
 
 
 ```{r}
 apef10000.10=MCMCpostPsample2D(1.5,
-rep(0.1,1),ogf[,,1:10],10000)
+rep(0.5,1),ogf[,,1:10],10000)
 ```
 
 ```{r}
 apef10000.20=MCMCpostPsample2D(1.5,
-rep(0.1,1),ogf[,,1:10],10000)
+rep(0.5,1),ogf[,,1:20],10000)
 ```
 
 
 ```{r}
 apef10000.30=MCMCpostPsample2D(1.5,
-rep(0.1,1),ogf[,,1:10],10000)
+rep(0.5,1),ogf,10000)
 ```
 
 
 
 ```{r}
-sigma=1.3;
-#plot(density(ress_10[1001:10000,2]), xlim=c(0,8),ylim=c(0,5),col="red",ylab="density (with vague prior)", xlab="Sample")
-plot(density(vvt5000[,1]), xlim=c(0.7,1.7),ylim=c(0,12),col="purple", xlab=expression(tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=0.8,main=expression(paste(bold("Overfit Problem:MCMC  posterior of")~~tilde(sigma)~~("+ uniform prior"))))
-abline(v=theta, col="black",lwd=2, lty=1)
-lines(density(vvt5000[,2]), ylim=c(0,12),col="blue")
-lines(density(vvt5000[,3]), ylim=c(0,12),col="forestgreen")
-lines(density(vvt5000[,4]), ylim=c(0,12),col="red")
 
-legend("topright",cex=1, c("n=10","n=20","n=50","n=100", expression(sigma_0)), lty = c(1,1,1,1,1), col = c("purple","blue","forestgreen","red", "black"), lwd = c(1,1,1,1,2))
+#plot(density(ress_10[1001:10000,2]), xlim=c(0,8),ylim=c(0,5),col="red",ylab="density (with vague prior)", xlab="Sample")
+plot(density(apem10000.10), xlim=c(10,16),ylim=c(0,4),col="skyblue", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of APE (male)")~~tilde(sigma)~~("+ uniform prior"))))
+#abline(v=theta, col="black",lwd=2, lty=1)
+abline(v=mean(apem10000.30), col="darkblue",lwd=2, lty=3)
+#lines(density(apem10000.20), ylim=c(0,12),col="blue")
+lines(density(apem10000.20), ylim=c(0,12),col="blue")
+lines(density(apem10000.30), ylim=c(0,12),col="blueviolet")
+
+legend("topleft",cex=0.6, c("n=10","n=20","n=30", expression(("(Bayes Estimate of ")~~tilde(sigma))), lty = c(1,1,1,3), col = c("skyblue","blue","blueviolet","darkblue"), lwd = c(1,1,1,1))
 ```
 
 
+
+
+```{r}
+
+#plot(density(ress_10[1001:10000,2]), xlim=c(0,8),ylim=c(0,5),col="red",ylab="density (with vague prior)", xlab="Sample")
+plot(density(apef10000.10), xlim=c(10,16),ylim=c(0,4),col="orange", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of APE (female)")~~tilde(sigma)~~("+ uniform prior"))))
+#abline(v=theta, col="black",lwd=2, lty=1)
+abline(v=mean(apef10000.30), col="red4",lwd=2, lty=3)
+#lines(density(apem10000.20), ylim=c(0,12),col="blue")
+lines(density(apef10000.20), ylim=c(0,12),col="hotpink")
+lines(density(apef10000.30), ylim=c(0,12),col="red")
+
+legend("topleft",cex=0.6, c("n=10","n=20","n=30", expression(("(Bayes Estimate of ")~~tilde(sigma))), lty = c(1,1,1,3), col = c("orange","hotpink","red","red4"), lwd = c(1,1,1,1))
+```
 
 
 
