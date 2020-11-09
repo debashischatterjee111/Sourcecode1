@@ -1,34 +1,13 @@
 ---
-title: "Classical Shape Ana (Draft)"
+title: "Classical Shape Analysis (Suppliment)"
 author: "Debashis Chatterjee"
 date: "10/19/2020"
 output: pdf_document
 ---
 
-
-
-
-
-
 ```{r}
 require(shapes)
 require(Morpho)
-```
-
-```{r}
-data(apes)
-proc <- procSym(apes$x)
-
-```
-```{r}
-procSym
-
-```
-
-```{r}
-par(mfrow=c(1,2))
-plotshapes(apes$x[,,apes$group=="gorf"],symbol="f")
-plotshapes(apes$x[,,apes$group=="gorm"],symbol="m")
 ```
 
 ```{r}
@@ -193,7 +172,7 @@ legend("topright",cex=0.6, c("n=10","n=20","n=30", expression(("(Bayes Estimate 
 
 
 ```{r}
-#COMBINED PLOT 
+#COMBINED PLOT
 
 #plot(density(ress_10[1001:10000,2]), xlim=c(0,8),ylim=c(0,5),col="red",ylab="density (with vague prior)", xlab="Sample")
 plot(density(apef10000.10), xlim=c(6,18),ylim=c(0,1.5),col="orange", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of Variance: APE (Male vs. female)")~~tilde(sigma)~~("+ uniform prior"))))
@@ -251,7 +230,7 @@ for(i in c(1,6,7,8,2,3,4,5,1))
 ```{r}
 sigma=50
   vcviso=(sigma^2)*matrix(c(1,0.5,0.5,1),2,2)
-  
+
 ```
 
 ```{r}
