@@ -1,9 +1,10 @@
 ---
-title: "Classical Shape Ana (Draft)"
+title: "wednesday_semifinal nov 2020"
 author: "Debashis Chatterjee"
-date: "10/19/2020"
+date: "11/11/2020"
 output: pdf_document
 ---
+
 
 
 
@@ -109,19 +110,19 @@ for(k in 1:dim(ogm)[3])
 ```
 
 ```{r}
-plot(c(min(gm[,1,])-30, 100+max(gm[,1,])), c(min(gm[,2,])-30, max(gm[,2,])+30), type = "n", main="Raw Data-plot of Apes: male & female", xlab="x",ylab="y")
+plot(c(min(o.gm[,1,])-30, 100+max(o.gm[,1,])), c(min(o.gm[,2,])-30, max(o.gm[,2,])+30), type = "n", main="Raw Data-plot of Apes: male & female", xlab="x",ylab="y")
 #plotshapes(gm[,,1],joinline=c(1,6,7,8,2,3,4,5,1), col=1:8, symbol=1:8)
 
-polygon(ogm[,1,1],ogm[,2,1],density=0, col="skyblue", border="blue")
-points(ogm[,1,1],ogm[,2,1], col="blue",pch=1:8)
-polygon(ogf[,1,1],ogf[,2,1],density=0, col="pink", border="red")
-points(ogf[,1,1],ogf[,2,1], col="red",pch=1:8)
+polygon(o.gm[,1,1],o.gm[,2,1],density=0, col="skyblue", border="blue")
+points(o.gm[,1,1],o.gm[,2,1], col="blue",pch=1:8)
+polygon(o.gf[,1,1],o.gf[,2,1],density=0, col="pink", border="red")
+points(o.gf[,1,1],o.gf[,2,1], col="red",pch=1:8)
 ```
 
 ```{r}
 require(BPviGM1)
 apem10000.10=MCMCpostPsample2D(1.5,
-rep(0.5,1),ogm[,,1:10],10000)
+rep(0.5,1),o.gm[,,1:10],10000)
 ```
 ```{r}
 PPLOTpostvar2D(apem10000.10, 1000)
