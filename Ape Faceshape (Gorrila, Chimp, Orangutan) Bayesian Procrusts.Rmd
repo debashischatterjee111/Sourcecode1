@@ -625,4 +625,7 @@ grid()
 \subsection{Conclusion}
 It is being observed from posterior Face-shape  variance density  comparison-plot that there are Bayesian evidence for more face-shape variability in Orang-utan male than the same for Orang-utan Female. 
 
+\section{Conclusion: overall}
+Based on the data "apes" (documented in R package "shapes"),and, after running a Bayesian procrusts analysis with R package "BPviGM1"), we observe from posterior Face-shape  variance density  comparison-plot that there are Bayesian evidence for more face-shape variability in all 3 apes (Gorilla, Chimpanzee,Orang-utan) male than the same for Orang-utan Female. Hence, we recommend extensive future research on this hypothesis.
+
 
