@@ -152,7 +152,7 @@ PPLOTpostvar2D(apef10000.30, 1000)
 ```{r}
 
 #plot(density(ress_10[1001:10000,2]), xlim=c(0,8),ylim=c(0,5),col="red",ylab="density (with vague prior)", xlab="Sample")
-plot(density(apem10000.10), xlim=c(1,6),ylim=c(0,4),col="skyblue", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of APE (male)")~~tilde(sigma)~~("+ uniform prior"))))
+plot(density(apem10000.10), xlim=c(1,6),ylim=c(0,4),col="skyblue", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of Chimpanzee (male)")~~tilde(sigma)~~("+ uniform prior"))))
 #abline(v=theta, col="black",lwd=2, lty=1)
 abline(v=mean(apem10000.30), col="darkblue",lwd=2, lty=3)
 #lines(density(apem10000.20), ylim=c(0,12),col="blue")
@@ -169,7 +169,7 @@ legend("topleft",cex=0.6, c("n=10","n=20","n=30", expression(("(Bayes Estimate o
 ```{r}
 
 #plot(density(ress_10[1001:10000,2]), xlim=c(0,8),ylim=c(0,5),col="red",ylab="density (with vague prior)", xlab="Sample")
-plot(density(apef10000.10), xlim=c(1,6),ylim=c(0,4),col="orange", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of APE (female)")~~tilde(sigma)~~("+ uniform prior"))))
+plot(density(apef10000.10), xlim=c(1,6),ylim=c(0,4),col="orange", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of Chimpanzee (female)")~~tilde(sigma)~~("+ uniform prior"))))
 #abline(v=theta, col="black",lwd=2, lty=1)
 abline(v=mean(apef10000.30), col="red4",lwd=2, lty=3)
 #lines(density(apem10000.20), ylim=c(0,12),col="blue")
@@ -185,20 +185,20 @@ legend("topright",cex=0.6, c("n=10","n=20","n=30", expression(("(Bayes Estimate 
 #COMBINED PLOT 
 
 #plot(density(ress_10[1001:10000,2]), xlim=c(0,8),ylim=c(0,5),col="red",ylab="density (with vague prior)", xlab="Sample")
-plot(density(apef10000.10[1000:10000]), xlim=c(1,7),ylim=c(0,5),col="orange", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of Variance: Chimpanzee (Male vs. female)")~~tilde(sigma)~~("+ uniform prior"))))
+plot(density(apef10000.10[1000:10000]), xlim=c(0,6),ylim=c(0,5),col="orange", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of Variance: Chimpanzee (Male vs. female)")~~tilde(sigma)~~("+ uniform prior"))))
 #abline(v=theta, col="black",lwd=2, lty=1)
 abline(v=mean(apef10000.30), col="red4",lwd=2, lty=3)
 #lines(density(apem10000.20), ylim=c(0,12),col="blue")
 lines(density(apef10000.20), ylim=c(0,12),col="hotpink")
 lines(density(apef10000.30), ylim=c(0,12),col="red")
 
-legend("topleft",cex=0.6,title="Ape (Female)", c("n=10","n=20","n=30", expression(("Bayes Estimate of ")~~tilde(sigma))), lty = c(1,1,1,3), col = c("orange","hotpink","red","red4"), lwd = c(1,1,1,1))
+legend("topleft",cex=0.6,title="Chimp (Female)", c("n=10","n=20","n=30", expression(("Bayes Estimate of ")~~tilde(sigma))), lty = c(1,1,1,3), col = c("orange","hotpink","red","red4"), lwd = c(1,1,1,1))
 abline(v=mean(apem10000.30), col="darkblue",lwd=2, lty=3)
 #lines(density(apem10000.20), ylim=c(0,12),col="blue")
 lines(density(apem10000.20), ylim=c(0,12),col="blue")
 lines(density(apem10000.30), ylim=c(0,12),col="blue4")
 lines(density(apem10000.10[1000:10000]), ylim=c(0,12),col="skyblue");
-legend("topright",cex=0.6,title="Ape (Male)", c("n=10","n=20","n=30", expression(("Bayes Estimate of ")~~tilde(sigma))), lty = c(1,1,1,3), col = c("skyblue","blue","blue4","darkblue"), lwd = c(1,1,1,1))
+legend("topright",cex=0.6,title="Chimp(Male)", c("n=10","n=20","n=30", expression(("Bayes Estimate of ")~~tilde(sigma))), lty = c(1,1,1,3), col = c("skyblue","blue","blue4","darkblue"), lwd = c(1,1,1,1))
 grid()
 ```
 

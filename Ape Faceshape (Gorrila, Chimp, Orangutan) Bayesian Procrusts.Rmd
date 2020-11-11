@@ -1,8 +1,12 @@
 ---
-title: 'Ape (Gorilla,Chimpanzee \& Orang-utan) Face-shape (Male vs. Female) Bayesian Procrusts Analysis using R package ``BPviGM1" \& Conclusion'
+title: Ape (Gorilla,Chimpanzee \& Orang-utan) Face-shape (Male vs. Female) Bayesian
+  Procrusts Analysis using R package ``BPviGM1" \& Conclusion
 author: "Debashis Chatterjee"
 date: "11/11/2020"
-output: pdf_document
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
 ---
 \section{Gorilla}
 \subsection{Load the Landmark Data of Gorilla}
@@ -46,15 +50,13 @@ o.gm=ogm=sortcoldat(ogm,c(1,6,7,8,2,3,4,5))
 \subsection{Keep the data in Pre-shape space}
 
 ```{r}
-
+require(Morpho)
 for(k in 1:dim(ogf)[3])
-{
-  o.gf[,,k] <- rotonto(ogf[,,1],ogf[,,k],scale=T)$yrot 
+{  o.gf[,,k]=rotonto(ogf[,,1],ogf[,,k],scale=T)$yrot 
 }
 
 for(k in 1:dim(ogm)[3])
-{
-  o.gm[,,k] <- rotonto(ogm[,,1],ogm[,,k],scale=T)$yrot 
+{ o.gm[,,k] <-rotonto(ogm[,,1],ogm[,,k],scale=T)$yrot 
 }
 
 ```
@@ -92,6 +94,7 @@ require(BPviGM1)
 apem10000.10=MCMCpostPsample2D(1.5,
 rep(0.5,1),o.gm[,,1:10],10000)
 ```
+
 ```{r}
 PPLOTpostvar2D(apem10000.10, 1000)
 ```
