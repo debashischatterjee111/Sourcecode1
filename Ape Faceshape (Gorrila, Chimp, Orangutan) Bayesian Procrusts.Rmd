@@ -90,7 +90,7 @@ points(o.gf[,1,1],o.gf[,2,1], col="red",pch=1:8)
 
 \subsection{Start \& Run MCMC for Gorilla Male upto 10 objects}
 ```{r}
-require(BPviGM1)
+#require(BPviGM1)
 apem10000.10=MCMCpostPsample2D(1.5,
 rep(0.5,1),o.gm[,,1:10],10000)
 ```
