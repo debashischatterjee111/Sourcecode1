@@ -13,6 +13,8 @@ output:
 \subsection{Load the Landmark Data of Gorilla}
 
 ```{r}
+ require(devtools)
+ install_github (" debashischatterjee111 / BPviGM1 ")
 require(BPviGM1)
 require(shapes)
 data(gorf.dat)
