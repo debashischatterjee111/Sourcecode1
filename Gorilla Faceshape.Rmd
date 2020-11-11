@@ -8,6 +8,12 @@ output: pdf_document
 
 ```{r}
 require(shapes)
+require(Morpho)
+require(BPviGM1)
+```
+
+
+```{r}
 data(gorf.dat)
 data(gorm.dat)
 ```
