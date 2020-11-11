@@ -298,6 +298,27 @@ make.mvn <- function(mean, vcv) {
 }
 ```
 
+```{r}
+plot(c(-10, 30), c(-12,10), type = "n", main=" Simulated RawData: 1000 Random convex & concave Quadrilaterals",cex.main=0.98, xlab="x",ylab="y")
+
+polygon(cvq[,1,1],cvq[,2,1],density=0, col="pink", border="red", lwd=2)
+for(k in 1:1000)
+{
+  polygon(cvq[,1,k],cvq[,2,k],density=0, col="pink", border=alpha(rgb(1,0,0), 0.018), lty=5, lwd=1)
+}
+
+polygon(ccq[,1,1],ccq[,2,1],density=0, col="blue", border="blue", lwd=2)
+for(k in 1:1000)
+{
+  polygon(ccq[,1,k],ccq[,2,k],density=0, col="green", border=alpha(rgb(0,0,1), 0.018), lty=2, lwd=1)
+}
+
+
+legend("bottomright", legend=c("1000 convex Quadrilaterals, true sigma=1.5", "1000 concave quadrilaterals, true sigma=0.8"),
+       col=c("red", "blue"), lty=c(1,1), cex=0.5,
+       title="Object shape types", text.font=4, bg='white')
+
+```
 
 
 ```{r}
@@ -318,6 +339,23 @@ for(i in 1:3)
 ```
 
 
+```{r}
+muuRV=matrix(rep(1,6),3,2)
+for(i in 1:3)
+{
+  muuRV[i,]=cvq[i,,1]
+}
+```
+
+
+
+```{r}
+muuRC=matrix(rep(1,6),3,2)
+for(i in 1:3)
+{
+  muuRC[i,]=ccq[i,,1]
+}
+```
 
 
 ```{r}
@@ -327,6 +365,20 @@ for(i in c(1,6,7,8,2,3,4,5,1))
   mu[i,]=apes$x[i,,1]
 }
 ```
+
+
+```{r}
+sigmaV=1.5
+  vcvisoV=(sigmaV^2)*matrix(c(1,0,0,1),2,2)
+  
+sigmaC=mean(tr5sR.10000[1000:10000])
+  vcvisoC=(sigmaC^2)*matrix(c(1,0,0,1),2,2)
+  
+```
+
+
+
+
 
 
 ```{r}
@@ -355,6 +407,46 @@ ffR1=make.mvn(muuR[1,],vcviso2)
 ffR2=make.mvn(muuR[2,],vcviso2)
 ffR3=make.mvn(muuR[3,],vcviso2)
 ```
+
+
+```{r}
+ffRV1=make.mvn(muuRV[1,],vcvisoV)
+ffRV2=make.mvn(muuRV[2,],vcvisoV)
+ffRV3=make.mvn(muuRV[3,],vcvisoV)
+```
+
+
+```{r}
+ffRC1=make.mvn(muuRC[1,],vcvisoC)
+ffRC2=make.mvn(muuRC[2,],vcvisoC)
+ffRC3=make.mvn(muuRC[3,],vcvisoC)
+```
+
+```{r}
+ffRV <- function(x)
+    ffRV1(x) + ffRV2(x)+ffRV3(x)
+ffRC <- function(x)
+    ffRC1(x) + ffRC2(x)+ffRC3(x)
+```
+
+```{r}
+
+x <- seq(min(cvq[,1,1])-1.3, max(cvq[,1,1])+1.3, length=100)
+y <- seq(min(cvq[,2,1])-1.6, max(cvq[,2,1])+1.6, length=100)
+xy <- expand.grid(x=x, y=y)
+z <- matrix(apply(as.matrix(xy), 1, ffRV), length(x), length(y))
+
+image(x, y, z, las=1)
+contour(x, y, z, col = "red1",add=TRUE, method= "simple", vfont = c("sans serif", "plain"), nlev = 10, lty = 4, xlab ="Posterior Sigma density contour",labcex = 0.6, drawlabels = TRUE)
+title("Posterior Sigma density contour (Data: 5 triangles)", font = 4)
+polygon(rt1[,1],rt1[,2],density=20, col="pink", border="red", lwd=2)
+polygon(rt2[,1],rt2[,2],density=20, col="green", border="forestgreen")
+polygon(rt3[,1],rt3[,2],density=40, col="blue1", border="blue2", angle = -90)
+polygon(rt4[,1],rt4[,2],density=20, col="orange", border="darkorange")
+polygon(rt5[,1],rt5[,2],density=20, col="yellow", border="gold3", lty = 2)
+#draw.ellipse(x= c(0), y= c(0), c(1), c(1), border = 'gray', lwd = 1, lty=3)
+```
+
 
 ```{r}
 ff <- function(x)
@@ -408,6 +500,60 @@ polygon(rt4[,1],rt4[,2],density=20, col="orange", border="darkorange")
 polygon(rt5[,1],rt5[,2],density=20, col="yellow", border="gold3", lty = 2)
 #draw.ellipse(x= c(0), y= c(0), c(1), c(1), border = 'gray', lwd = 1, lty=3)
 ```
+
+
+
+
+
+
+
+
+```{r}
+plot(c(-10, 30), c(-12,10), type = "n", main=" Simulated RawData: 1000 Random convex & concave Quadrilaterals",cex.main=0.98, xlab="x",ylab="y")
+
+polygon(cvq[,1,1],cvq[,2,1],density=0, col="pink", border="red", lwd=2)
+for(k in 1:1000)
+{
+  polygon(cvq[,1,k],cvq[,2,k],density=0, col="pink", border=alpha(rgb(1,0,0), 0.018), lty=5, lwd=1)
+}
+
+polygon(ccq[,1,1],ccq[,2,1],density=0, col="blue", border="blue", lwd=2)
+for(k in 1:1000)
+{
+  polygon(ccq[,1,k],ccq[,2,k],density=0, col="green", border=alpha(rgb(0,0,1), 0.018), lty=2, lwd=1)
+}
+
+
+legend("bottomright", legend=c("1000 convex Quadrilaterals, true sigma=1.5", "1000 concave quadrilaterals, true sigma=0.8"),
+       col=c("red", "blue"), lty=c(1,1), cex=0.5,
+       title="Object shape types", text.font=4, bg='white')
+
+```
+
+
+```{r}
+plot(c(-10, 30), c(-12,10), type = "n", main=" Simulated RawData: 1000 Random convex & concave Quadrilaterals",cex.main=0.98, xlab="x",ylab="y")
+
+polygon(cvq[,1,1],cvq[,2,1],density=0, col="pink", border="red", lwd=2)
+for(k in 1:1000)
+{
+  polygon(cvq[,1,k],cvq[,2,k],density=0, col="pink", border=alpha(rgb(1,0,0), 0.018), lty=5, lwd=1)
+}
+
+polygon(ccq[,1,1],ccq[,2,1],density=0, col="blue", border="blue", lwd=2)
+for(k in 1:1000)
+{
+  polygon(ccq[,1,k],ccq[,2,k],density=0, col="green", border=alpha(rgb(0,0,1), 0.018), lty=2, lwd=1)
+}
+
+
+legend("bottomright", legend=c("1000 convex Quadrilaterals, true sigma=1.5", "1000 concave quadrilaterals, true sigma=0.8"),
+       col=c("red", "blue"), lty=c(1,1), cex=0.5,
+       title="Object shape types", text.font=4, bg='white')
+
+```
+
+
 
 ```{r}
 

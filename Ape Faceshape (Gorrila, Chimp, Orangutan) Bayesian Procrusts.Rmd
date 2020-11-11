@@ -7,11 +7,13 @@ output:
   pdf_document: default
   html_document:
     df_print: paged
+  word_document: default
 ---
 \section{Gorilla}
 \subsection{Load the Landmark Data of Gorilla}
 
 ```{r}
+require(BPviGM1)
 require(shapes)
 data(gorf.dat)
 data(gorm.dat)
@@ -91,7 +93,7 @@ points(o.gf[,1,1],o.gf[,2,1], col="red",pch=1:8)
 \subsection{Start \& Run MCMC for Gorilla Male upto 10 objects}
 ```{r}
 #require(BPviGM1)
-apem10000.10=MCMCpostPsample2D(1.5,
+apem10000.10=BPviGM1::MCMCpostPsample2D(1.5,
 rep(0.5,1),o.gm[,,1:10],10000)
 ```
 
