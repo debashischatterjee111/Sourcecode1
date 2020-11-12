@@ -7,6 +7,18 @@ output: pdf_document
 \section{Load the Landmark Data of Gorilla}
 
 ```{r}
+#install.packages("githubinstall")
+#require(githubinstall)
+#githubinstall("BPviGM1")
+
+#install.packages("devtools")
+#require(devtools)
+#install_github("debashischatterjee111/BPviGM1")
+
+```
+
+
+```{r}
 require(shapes)
 require(Morpho)
 require(BPviGM1)
@@ -79,13 +91,6 @@ points(o.gf[,1,1],o.gf[,2,1], col="red",pch=1:8)
 
 ```{r}
 
-#install.packages("githubinstall")
-#require(githubinstall)
-#githubinstall("BPviGM1")
-
-#install.packages("devtools")
-#require(devtools)
-#install_github("debashischatterjee111/BPviGM1")
 
 
 ```
@@ -98,7 +103,7 @@ apem10000.10=MCMCpostPsample2D(1.5,
 rep(0.5,1),o.gm[,,1:10],10000)
 ```
 ```{r}
-PPLOTpostvar2D(apem10000.10, 1000)
+PPLOTpostvar2D(apem10000.10, 1000,colu="blue")
 ```
 
 \section{Start \& Run MCMC for Gorilla Male upto 20 objects}
@@ -108,7 +113,7 @@ apem10000.20=MCMCpostPsample2D(1.5,
 rep(0.5,1),o.gm[,,1:20],10000)
 ```
 ```{r}
-PPLOTpostvar2D(apem10000.20, 1000)
+PPLOTpostvar2D(apem10000.20, 1000,colu="blue")
 ```
 
 
@@ -120,7 +125,7 @@ rep(0.5,1),o.gm[,,],10000)
 ```
 
 ```{r}
-PPLOTpostvar2D(apem10000.30, 1000)
+PPLOTpostvar2D(apem10000.30, 1000,colu="blue")
 ```
 
 \section{Start \& Run MCMC for Gorilla Female upto 10 objects}
@@ -129,7 +134,7 @@ apef10000.10=MCMCpostPsample2D(1.5,
 rep(0.5,1),o.gf[,,1:10],10000)
 ```
 ```{r}
-PPLOTpostvar2D(apef10000.10, 1000)
+PPLOTpostvar2D(apef10000.10, 1000,colu="red")
 ```
 
 \section{Start \& Run MCMC for Gorilla Female upto 20 objects}
@@ -139,7 +144,7 @@ apef10000.20=MCMCpostPsample2D(1.5,
 rep(0.5,1),o.gf[,,1:20],10000)
 ```
 ```{r}
-PPLOTpostvar2D(apef10000.20, 1000)
+PPLOTpostvar2D(apef10000.20, 1000,colu="red")
 ```
 \section{Start \& Run MCMC for Gorilla Female upto 30 objects}
 
@@ -149,7 +154,7 @@ rep(0.5,1),o.gf,10000)
 ```
 
 ```{r}
-PPLOTpostvar2D(apef10000.30, 1000)
+PPLOTpostvar2D(apef10000.30, 1000,colu="red")
 ```
 
 
@@ -158,7 +163,7 @@ PPLOTpostvar2D(apef10000.30, 1000)
 ```{r}
 
 #plot(density(ress_10[1001:10000,2]), xlim=c(0,8),ylim=c(0,5),col="red",ylab="density (with vague prior)", xlab="Sample")
-plot(density(apem10000.10), xlim=c(1,6),ylim=c(0,4),col="skyblue", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of APE (male)")~~tilde(sigma)~~("+ uniform prior"))))
+plot(density(apem10000.10), xlim=c(1,6),ylim=c(0,4),col="skyblue", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of Gorilla (male)")~~tilde(sigma)~~("+ uniform prior"))))
 #abline(v=theta, col="black",lwd=2, lty=1)
 abline(v=mean(apem10000.30), col="darkblue",lwd=2, lty=3)
 #lines(density(apem10000.20), ylim=c(0,12),col="blue")
@@ -175,7 +180,7 @@ legend("topleft",cex=0.6, c("n=10","n=20","n=30", expression(("(Bayes Estimate o
 ```{r}
 
 #plot(density(ress_10[1001:10000,2]), xlim=c(0,8),ylim=c(0,5),col="red",ylab="density (with vague prior)", xlab="Sample")
-plot(density(apef10000.10), xlim=c(1,6),ylim=c(0,4),col="orange", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of APE (female)")~~tilde(sigma)~~("+ uniform prior"))))
+plot(density(apef10000.10), xlim=c(1,6),ylim=c(0,4),col="orange", xlab=expression(("Bayes Estimate of ")~~tilde(sigma)),ylab="MCMC Posterior Sigma Density",cex.main=1,main=expression(paste(bold("MCMC  posterior of Gorilla  (female)")~~tilde(sigma)~~("+ uniform prior"))))
 #abline(v=theta, col="black",lwd=2, lty=1)
 abline(v=mean(apef10000.30), col="red4",lwd=2, lty=3)
 #lines(density(apem10000.20), ylim=c(0,12),col="blue")
@@ -198,13 +203,13 @@ abline(v=mean(apef10000.30), col="red4",lwd=2, lty=3)
 lines(density(apef10000.20), ylim=c(0,12),col="hotpink")
 lines(density(apef10000.30), ylim=c(0,12),col="red")
 
-legend("topleft",cex=0.6,title="Ape (Female)", c("n=10","n=20","n=30", expression(("Bayes Estimate of ")~~tilde(sigma))), lty = c(1,1,1,3), col = c("orange","hotpink","red","red4"), lwd = c(1,1,1,1))
+legend("topleft",cex=0.6,title="Gorilla (Female)", c("n=10","n=20","n=30", expression(("Bayes Estimate of ")~~tilde(sigma))), lty = c(1,1,1,3), col = c("orange","hotpink","red","red4"), lwd = c(1,1,1,1))
 abline(v=mean(apem10000.30), col="darkblue",lwd=2, lty=3)
 #lines(density(apem10000.20), ylim=c(0,12),col="blue")
 lines(density(apem10000.20), ylim=c(0,12),col="blue")
 lines(density(apem10000.30), ylim=c(0,12),col="blue4")
 lines(density(apem10000.10[1000:10000]), ylim=c(0,12),col="skyblue");
-legend("topright",cex=0.6,title="Ape (Male)", c("n=10","n=20","n=30", expression(("Bayes Estimate of ")~~tilde(sigma))), lty = c(1,1,1,3), col = c("skyblue","blue","blue4","darkblue"), lwd = c(1,1,1,1))
+legend("topright",cex=0.6,title="Gorilla (Male)", c("n=10","n=20","n=30", expression(("Bayes Estimate of ")~~tilde(sigma))), lty = c(1,1,1,3), col = c("skyblue","blue","blue4","darkblue"), lwd = c(1,1,1,1))
 grid()
 ```
 
